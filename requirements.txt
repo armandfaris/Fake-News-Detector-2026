@@ -6,5 +6,5 @@ gensim
 lime
 beautifulsoup4
 requests
-newspaper3k
 PyPDF2
+joblib
