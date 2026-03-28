@@ -1,0 +1,10 @@
+streamlit
+pandas
+numpy
+scikit-learn
+gensim
+lime
+beautifulsoup4
+requests
+newspaper3k
+PyPDF2
