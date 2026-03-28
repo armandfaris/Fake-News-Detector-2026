@@ -17,6 +17,11 @@ import streamlit.components.v1 as components
 import joblib
 from gensim.models import KeyedVectors
 
+# --- 0. INITIALIZATION ---
+nltk.download('punkt', quiet=True)
+nltk.download('punkt_tab', quiet=True) # Needed for some 2026 NLTK versions
+nltk.download('stopwords', quiet=True)
+
 def get_hybrid_vector(text, tfidf_model, w2v_vectors):
     # This turns your news text into a 100-dimension "meaning" vector
     words = text.lower().split()
@@ -145,7 +150,10 @@ def load_assets():
 def hybrid_predict_proba(texts):
     vectors = []
     for t in texts:
-        vectors.append(get_hybrid_vector(clean_text(t), vectorizer, w2v_vectors))
+        # We must clean the text exactly how the model expects it
+        cleaned_t = clean_text(t)
+        v = get_hybrid_vector(cleaned_t, vectorizer, w2v_vectors)
+        vectors.append(v)
     return model.predict_proba(np.array(vectors))
 
 try:
